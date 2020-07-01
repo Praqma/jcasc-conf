@@ -10,7 +10,7 @@ services:
     image: praqma/jcasc:${JCASC_VERSION:-latest}
     ports:
       - 50000:50000
-      - 8080:80
+      - 8080:8080
     volumes:
       - $JCASC_HOME:/var/jenkins_home
       - $PWD/casc_configs:/var/jenkins_conf
@@ -18,7 +18,8 @@ services:
       - CASC_JENKINS_CONFIG=/var/jenkins_conf
       - JCASC_VERSION
       - CONFIG_VERSION
-      - JENKINS_RUNNER
+      - JENKINS_RUNNER=${JENKINS_RUNNER:-jenkins}
+      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-SecretPasswd21}
       - JENKINS_HOST=$HOSTNAME
 
   agent:
@@ -30,7 +31,7 @@ services:
         max-size:  "20m"
         max-file: "3"
     environment:
-      - JENKINS_RUNNER
+      - JENKINS_RUNNER=${JENKINS_RUNNER:-jenkins}
     volumes:
       - $HOME/.ssh/${JENKINS_RUNNER}.password:/tmp/password
       - /var/run/docker.sock:/var/run/docker.sock

@@ -3,3 +3,11 @@ jenkins:
   numExecutors: 0
   mode: NORMAL
   scmCheckoutRetryCount: 3
+
+
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+       - id: ${JENKINS_RUNNER:-admin}
+         password: ${JENKINS_PASSWORD:-admin}
