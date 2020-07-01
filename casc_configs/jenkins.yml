@@ -1,0 +1,5 @@
+jenkins:
+  systemMessage: "This Jenkins instance is generated from code via JCasC plugin. \n\n Configuration version ${CONFIG_VERSION}\n\nimage-version ${JCASC_VERSION}\n\n"
+  numExecutors: 0
+  mode: NORMAL
+  scmCheckoutRetryCount: 3

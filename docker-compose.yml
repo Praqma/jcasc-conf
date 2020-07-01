@@ -1,0 +1,39 @@
+version: '3.3'
+
+services:
+  jenkins:
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"
+        max-size: "10m"
+    image: Praqma/jcasc:${JCASC_VERSION:-latest}
+    ports:
+      - 50000:50000
+    volumes:
+      - $JCASC_HOME:/var/jenkins_home
+      - $PWD/casc_configs:/var/jenkins_conf
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_conf
+      - JCASC_VERSION
+      - CONFIG_VERSION
+      - JENKINS_RUNNER
+      - JENKINS_HOST=$HOSTNAME
+
+  agent:
+    image: Praqma/jcasc-agent:${JCASC_VERSION:-latest}
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size:  "20m"
+        max-file: "3"
+    environment:
+      - JENKINS_RUNNER
+    volumes:
+      - $HOME/.ssh/${JENKINS_RUNNER}.password:/tmp/password
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker:/var/lib/docker
+
+volumes:
+  new_jenkins_home:
