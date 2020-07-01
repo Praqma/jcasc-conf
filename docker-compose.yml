@@ -33,7 +33,6 @@ services:
     environment:
       - JENKINS_RUNNER=${JENKINS_RUNNER:-jenkins}
     volumes:
-      - $HOME/.ssh/${JENKINS_RUNNER}.password:/tmp/password
       - /var/run/docker.sock:/var/run/docker.sock
       - /var/lib/docker:/var/lib/docker
 
