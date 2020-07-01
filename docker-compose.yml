@@ -10,6 +10,7 @@ services:
     image: praqma/jcasc:${JCASC_VERSION:-latest}
     ports:
       - 50000:50000
+      - 8080:80
     volumes:
       - $JCASC_HOME:/var/jenkins_home
       - $PWD/casc_configs:/var/jenkins_conf
