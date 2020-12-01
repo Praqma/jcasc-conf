@@ -1,6 +1,26 @@
 version: '3.3'
 
 services:
+  staging:
+    logging:
+      driver: "json-file"
+      options:
+        max-file: "3"
+        max-size: "10m"
+    image: praqma/jcasc:${STAGING_VERSION:-latest}
+    ports:
+      - 80:8080
+    volumes:
+      - $STAGING_HOME:/var/jenkins_home
+      - $PWD/staging_configs:/var/jenkins_conf
+    environment:
+      - CASC_JENKINS_CONFIG=/var/jenkins_conf
+      - STAGING_VERSION
+      - CONFIG_VERSION
+      - JENKINS_RUNNER=${JENKINS_RUNNER:-jenkins}
+      - JENKINS_PASSWORD=${JENKINS_PASSWORD:-SecretPasswd21}
+      - JENKINS_HOST=$HOSTNAME
+
   jenkins:
     logging:
       driver: "json-file"

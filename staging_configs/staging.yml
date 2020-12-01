@@ -1,0 +1,2 @@
+groovy:
+  - file: "/var/jenkins_conf/quiet-start.groovy"

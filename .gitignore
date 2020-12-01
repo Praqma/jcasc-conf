@@ -1,0 +1,4 @@
+# ignore mac generated files
+.DS_Store
+# ignore temporary jcasc conf file for staging
+staging_configs/prod/*
